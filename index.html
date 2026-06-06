@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PARCIAL</title>
+</head>
+<body>
+    
+    <button onclick="ejercicio1()">Ejercicio 1</button>
+    <button onclick="ejercicio2()">Ejercicio 2</button>
+    <button onclick="ejercicio3()">Ejercicio 3</button>
+    <button onclick="ejercicio4()">Ejercicio 4</button>
+    <button onclick="ejercicio5()">Ejercicio 5</button>
+
+    <div id="resultado1"></div>
+    <HR></HR>
+    <div id="resultado2"></div>
+    <HR></HR>
+    <div id="resultado3"></div>
+    <HR></HR>
+    <div id="resultado4"></div>
+    <HR></HR>
+    <div id="resultado5"></div>
+    
+    <script>
+ 
+        async function ejercicio1() {
+            
+            let resultado = document.getElementById("resultado1")
+
+                const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=100000`)
+                const data = await response.json()
+                
+                const cantPokemons = data.results.length
+
+                    resultado.innerHTML = `<p>Ejercicio 1</p>
+                                        <p>La cantidad de pokemons es: ${cantPokemons}</p>`
+        }
+
+        async function ejercicio3 () {
+
+            let resultado = document.getElementById("resultado3")
+
+                const response = await fetch(`https://pokeapi.co/api/v2/pokemon/pikachu`)
+                const data = await response.json()
+                
+                    const pikachu = {
+                        nombre: data.name,
+                        altura: data.height,
+                        exp_base_hp: data.stats[0].base_stat,
+                        exp_base_attack: data.stats[1].base_stat,
+                        exp_base_defense: data.stats[2].base_stat,
+                        exp_base_special_attack: data.stats[3].base_stat,
+                        exp_base_special_defense: data.stats[4].base_stat,
+                        exp_base_speed: data.stats[5].base_stat,
+                        primer_tipo: data.types[0].type.name,
+                        cant_habilidades: data.abilities.length
+                    }
+                
+                            resultado.innerHTML = `<p>Ejercicio 3</p>
+                                                    <p>Nombre: ${pikachu.nombre}</p>
+                                                    <p>Altura: ${pikachu.altura}</p>
+                                                    <p>Experiencia base de HP: ${pikachu.exp_base_hp}</p>
+                                                    <p>Experiencia base de Ataque: ${pikachu.exp_base_attack}</p>
+                                                    <p>Experiencia base de Defensa: ${pikachu.exp_base_defense}</p>
+                                                    <p>Experiencia base de Ataque Especial: ${pikachu.exp_base_special_attack}</p>
+                                                    <p>Experiencia base de Defensa Especial: ${pikachu.exp_base_special_defense}</p>
+                                                    <p>Experiencia base de Velocidad: ${pikachu.exp_base_speed}</p>
+                                                    <p>Primer tipo: ${pikachu.primer_tipo} </p>
+                                                    <p>Cantidad de habilidades: ${pikachu.cant_habilidades} </p>`
+                
+        }
+
+        async function ejercicio4() {
+
+            let resultado = document.getElementById("resultado4")
+
+            const pokemon1 = await fetch(`https://pokeapi.co/api/v2/pokemon/charmander`)
+            const datosCharmander = await pokemon1.json()
+
+                const pokemon2 = await fetch(`https://pokeapi.co/api/v2/pokemon/squirtle`)
+                const datosSquirtle = await pokemon2.json()
+
+                    const pokemon3 = await fetch(`https://pokeapi.co/api/v2/pokemon/bulbasaur`)
+                    const datosBulbasaur = await pokemon3.json()
+
+            let charmander = {
+                "nombre": datosCharmander.name,
+                "peso": datosCharmander.weight
+            }
+
+                let squirtle = {
+                    "nombre": datosSquirtle.name,
+                    "peso": datosSquirtle.weight
+                }
+
+                    let bulbasaur = {
+                        "nombre": datosBulbasaur.name,
+                        "peso": datosBulbasaur.weight
+                    }
+
+            let array = []
+
+            array.push(charmander.nombre, charmander.peso,"---", squirtle.nombre, squirtle.peso, "---",bulbasaur.nombre, bulbasaur.peso)
+
+                resultado.innerHTML = `<p>Ejercicio 4</p>
+                                        <p>El array quedó: ${array}</p>`
+        }
+
+
+        function ejercicio5 () {
+            
+            let resultado = document.getElementById("resultado5")
+
+            fetch(`https://pokeapi.co/api/v2/pokemon?limit=50`)
+            .then (response => response.json())
+            .then (data => {
+
+                let pokemons = []
+
+                    pokemons = data.results.map((p, pokemons) => pokemons = (p.name)) 
+
+                        pokemons.sort((a, b) => a.localeCompare(b))
+
+                            resultado.innerHTML = `<p>Ejercicio 5</p>
+                                                    <p>Se ordenaron los pokemons alfabeticamente:</p>
+                                                    <p> ${pokemons}</p>`
+                })
+        }
+    </script>
+</body>
+</html>
